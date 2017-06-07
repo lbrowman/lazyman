@@ -71,4 +71,34 @@ class GenerateSchema(object):
                 f.write(py_file)
         return resources
 
+    def create_app(self):
+        """creates app.py file to run api"""
+        resources = {'resources':self.get_schema()}
+        py_name = 'app.py'
+        classes = ', '.join(list(resources['resources']))
+        with open(py_name, 'w') as f_writer:
+            context = {'classes':classes}
+            py_file = self.render_template('app_base_template.py', context)
+            f_writer.write(py_file)
+
+        for key in resources['resources'].items():
+            context = {
+                'class':key[0],
+                'instance':key[0].upper()
+            }
+            with open(py_name, 'a+') as f_writer:
+                py_file = self.render_template('app_resource_template.py', context)
+                f_writer.write(py_file)
+
+        with open(py_name, 'a+') as f_writer:
+            f_writer.write('\n')
+
+        for key, value in resources['resources'].items():
+            context = {
+                'class':key.upper(),
+                'route':value
+            }
+            with open(py_name, 'a+') as f_writer:
+                py_file = self.render_template('app_route_template.py', context)
+                f_writer.write(py_file)
         

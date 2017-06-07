@@ -5,5 +5,5 @@ import requests
 import json
 
 CONTENT_TYPE = 'application/json'
-RESP = {'msg':'','result': ''}
+RESP = {'msg':{},'result': ''}
 

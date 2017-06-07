@@ -6,5 +6,5 @@ CON = {
 GM = GenerateSchema(CON)
 # print(GM.get_schema())
 RESOURCES = (GM.create_resources())
-
+GM.create_app()
 
